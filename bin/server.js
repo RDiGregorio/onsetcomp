@@ -48,7 +48,11 @@ app.get('/api/votes', function (req, res) {
 // POST "votes" API endpoint.
 
 app.post('/api/votes', function (req, res) {
-  req.body[0] === 'cake' ? voteCake() : votePie();
+
+  // Handles messages from both Angular 1 and Angular 6.
+
+  let message = req.body.message ? JSON.parse(req.body.message)[0] : req.body[0];
+  message === 'cake' ? voteCake() : votePie();
   console.log(votes);
   res.send(votes);
 });
